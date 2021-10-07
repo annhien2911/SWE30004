@@ -1,0 +1,33 @@
+language: node_js
+node_js: 
+- 12.18.3
+- 12
+cache: npm
+
+### 
+# Travis hooks:
+# - before_install: called just before everything
+# - install: this is when the dependencies above are installed
+# - before_script
+# - script:
+#   + after_success
+#   + after_failure
+# - after_script
+# - before_deploy
+# - deploy
+# - after_deploy
+
+install:
+  - npm ci
+
+script:
+  - npm test
+  - npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  on: 
+    branch: gh-pages
+    
